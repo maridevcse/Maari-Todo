@@ -17,12 +17,12 @@ html{
 }
 @media only screen and (max-width:450px){
   html{
-    font-size: 55%;
+    font-size: 60%;
   }
 }
 @media only screen and (max-width: 400px) {
   html {
-    font-size: 50%;
+    font-size: 55%;
   }
  
 }
@@ -30,7 +30,7 @@ html{
 
 @media only screen and (max-width: 360px) {
   html {
-    font-size: 40%;
+    font-size: 45%;
   }
 }
 
@@ -38,7 +38,7 @@ html{
 .container {
   display: grid;
   grid-template-columns: 1fr repeat(2, minmax(20rem, min-content)) 1fr;
-   grid-template-rows: 30vh 30vh; 
+   grid-template-rows: 20vh 30vh; 
 
  
 }

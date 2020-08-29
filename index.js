@@ -21,7 +21,7 @@ if(str!==''){
     var markup = `
   <div class="inserted-text-container" id=${"pos" + index}>
   <p><span>${index+1+"."}</span>${str}</p>
-  <i class="icon-container" title="remove"><ion-icon name="close-circle-outline"></ion-icon></i>
+  <i class="icon-container" <ion-icon name="close-circle-outline" title="remove">></ion-icon></i>
  </div>
   `;
   document.querySelector(".inserted-text").insertAdjacentHTML("beforeend", markup);

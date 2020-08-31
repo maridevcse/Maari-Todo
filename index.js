@@ -1,53 +1,71 @@
-
-alert("Dear users this Todo app going to update on Aug 31 8PM so please write down your Todos somewhere after the update you can Add it");
-
 const clearInput = () => {
     document.querySelector(".input-box").value = "";
     document.querySelector(".input-box").focus();
 };
+
 const getInput = () => {
     const input = document.querySelector(".input-box").value;
     return input;
-
-
 };
+
+let inputArr = [];
 const insertDB=(input)=>{
     localStorage.clear();
     inputArr.push(input);
     localStorage.setItem('Array',JSON.stringify(inputArr));
-
 }
-let inputArr = [];
-const renderUI = (str, index) => {
+
+
+var ID = function () {
+    // Math.random should be unique because of its seeding algorithm.
+    // Convert it to base 36 (numbers + letters), and grab the first 9 characters
+    // after the decimal.
+    return '_' + Math.random().toString(36).substr(2, 9);
+  };
+
+const renderUI = (str, index,id) => {
 
 if(str!==''){
     var markup = `
-  <div class="inserted-text-container" id=${"pos" + index}>
-  <p><span>${index+1+"."}</span>${str}</p>
+  <div class="inserted-text-container" id=${id}>
+  <p class="para"><span>${index+1+"."}</span>${str}</p>
   <i class="icon-container" title="remove"> <ion-icon name="close-circle-outline" ></ion-icon></i>
  </div>
   `;
   document.querySelector(".inserted-text").insertAdjacentHTML("beforeend", markup);
 }
 };
+
+class inputCons {
+    constructor(input,id){
+    this.input=input,
+    this.id=id  
+}
+  strike=false
+}
  
 const controlInput=()=>{
+   
+    // creating ID
+    var Id=ID();
     //1.get value from ui
-    var input = getInput();
-    
+    var get_input = getInput();
+    const input=new inputCons(get_input,Id);
+
     // 2.condition for has input or not
     //3.renderInto UI
 
-    if(input!='' && input.trim()!=''){
+    if(input.input!="" && input.input.trim()!=""){
         insertDB(input);
-        renderUI(input,inputArr.indexOf(input));
+        renderUI(input.input,inputArr.indexOf(input),input.id);
        }
        else{
-        //    alert("Please enter your Input");
+        //   alert("Please enter your Input");
        }
 
     //4.clear and focus the InputBox
        clearInput();
+
   
 
 }
@@ -71,8 +89,11 @@ document.addEventListener('keypress',e=>{
 
 const deleteItem=(e)=>{
     var id=e.target.parentNode.parentNode.id;
-    var replacepos=parseInt(id.replace('pos',''));
-    inputArr.splice(replacepos,1);
+    // var replacepos=parseInt(id.replace('pos',''));
+
+    var id_pos=inputArr.findIndex((el)=>el.id==id)
+    inputArr.splice(id_pos,1);
+    
     var idparent=e.target.parentNode.parentNode.parentNode.className;
     document.getElementById(`${id}`).classList.add('bombLeftOut');
     localStorage.clear();
@@ -96,7 +117,7 @@ document.querySelector('.inserted-text').addEventListener('click',e=>{
 })
 
 window.addEventListener('load',()=>{
-
+   
     if(localStorage.length>0){
         let getLocal=JSON.parse(localStorage.getItem('Array'));
          if(getLocal.length>0){
@@ -106,10 +127,15 @@ window.addEventListener('load',()=>{
          }
         
         inputArr.forEach(el=>{
-        renderUI(el,inputArr.indexOf(el));
+        renderUI(el.input,inputArr.indexOf(el),el.id);
         });
+     
     }
    
 })
 
 
+
+
+
+ 

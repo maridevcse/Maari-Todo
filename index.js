@@ -1,3 +1,6 @@
+
+alert("Hello users this Todo app going to update on Aug 31 8PM so please write down your Todos somewhere after the update you can Add it");
+
 const clearInput = () => {
     document.querySelector(".input-box").value = "";
     document.querySelector(".input-box").focus();

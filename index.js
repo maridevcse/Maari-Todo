@@ -105,6 +105,8 @@ const deleteItem=(e)=>{
     setTimeout(()=>{
         document.getElementById(`${id}`).remove();
     },400)
+    
+     location.reload(true);
  
 }
 
